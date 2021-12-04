@@ -77,7 +77,7 @@ set<string, decltype(cmp)> SplitString(string& str, char delimiter = '.') {
     return result;
 
 }
-void Task2()
+void AsotiativeContainer()
 {
     string text;
     cout << "Введите пожалуйста строку: ";
@@ -103,7 +103,7 @@ void Task2()
             {
                 //Task 2
                 cout << "\n\nЗадание 2" << endl;
-                Task2();
+                AsotiativeContainer();
             }
 
         };
