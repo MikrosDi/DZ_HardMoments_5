@@ -87,9 +87,6 @@ void Task2()
     copy(container.begin(), container.end(), ostream_iterator<string>(cout, " \n"));
 }
 
-
-
-
         int main()
         {
             SetConsoleCP(1251);
@@ -107,7 +104,6 @@ void Task2()
                 //Task 2
                 cout << "\n\nЗадание 2" << endl;
                 Task2();
-
             }
 
         };
