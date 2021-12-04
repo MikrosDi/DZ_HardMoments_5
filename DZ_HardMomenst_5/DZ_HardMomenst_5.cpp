@@ -10,7 +10,8 @@
 #include <unordered_map>
 #include <list>
 #include <map>
-
+#include <set>
+#include <Windows.h> 
 using namespace std;
 
 /*Task 1
@@ -52,44 +53,48 @@ void DemonstrationIterators() {
 которая будет считывать данные введенные пользователем из стандартного потока ввода и разбивать их на предложения.
 Далее программа должна вывести пользователю все предложения, отсортировав их по длине.*/
 
-multimap<int, string> StringToMap2()
+string trim(string src)
 {
-    string one;
-    string two;
-    multimap<int, string> twos;
-    while (cin >> one) {
-        if (one.back() != '.' || one.back() != '!' || one.back() != '?')
-        {
-            two.append(one);
-            two.push_back(' ');
-        }
-        if (*(two.end() - 2) == '.' || *(two.end() - 2) == '!' ||
-            *(two.end() - 2) == '?')
-        {
-            two.pop_back();
-            int words = count(two.begin(), two.end(), ' ') + 1;
-            twos.insert({ words, two });
-            two.clear();
-        }
+    src.erase(std::find_if_not(src.rbegin(), src.rend(), ::isspace).base(), src.end());
+    src.erase(src.begin(), std::find_if_not(src.begin(), src.end(), ::isspace));
+    return src;
+}
+
+auto cmp = [](const string& a, const string& b) { return a.length() > b.length(); };
+
+set<string, decltype(cmp)> SplitString(string& str, char delimiter = '.') {
+    set<string, decltype(cmp)> result;
+    auto start = 0U;
+    auto end = str.find(delimiter);
+    while (end != string::npos) {
+        result.insert(trim(str.substr(start, end - start)));
+        start = end + 1;
+        end = str.find(delimiter, start);
     }
-    return twos;
+    if (start != end) {
+        result.insert(trim(str.substr(start, end - start)));
+    }
+    return result;
+
 }
-
-
-void HWTwo()
+void Task2()
 {
-    string str;
-    multimap<int, string> two;
-    cout << "Введите пожалуйста текст: ";
-    two = StringToMap2();
-    for_each(two.begin(), two.end(), [](pair<int, string> item)
-        {
-            cout << item.first << " " << item.second << endl;
-        });
+    string text;
+    cout << "Введите пожалуйста строку: ";
+    getline(cin, text);
+    cout << text << endl;
+    set<string, decltype(cmp)> container = SplitString(text);
+    copy(container.begin(), container.end(), ostream_iterator<string>(cout, " \n"));
 }
+
+
+
 
         int main()
         {
+            SetConsoleCP(1251);
+
+            SetConsoleOutputCP(1251);
 
             setlocale(LC_ALL, "rus");
             {
@@ -101,7 +106,7 @@ void HWTwo()
             {
                 //Task 2
                 cout << "\n\nЗадание 2" << endl;
-                HWTwo();
+                Task2();
 
             }
 
