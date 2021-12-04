@@ -55,8 +55,8 @@ void DemonstrationIterators() {
 
 string trim(string src)
 {
-    src.erase(std::find_if_not(src.rbegin(), src.rend(), ::isspace).base(), src.end());
-    src.erase(src.begin(), std::find_if_not(src.begin(), src.end(), ::isspace));
+    src.erase(find_if_not(src.rbegin(), src.rend(), ::isspace).base(), src.end());
+    src.erase(src.begin(), find_if_not(src.begin(), src.end(), ::isspace));
     return src;
 }
 
